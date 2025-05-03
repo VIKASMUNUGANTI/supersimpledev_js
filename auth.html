@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-container {
+      background: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      width: 300px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      width: 50%;
+      padding: 0.6rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Username" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('loginForm');
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      // Validate username: must start with lowercase and contain '@'
+      const usernameValid = /^[a-z].*@/.test(username);
+      if (!usernameValid) {
+        alert('Username must start with a lowercase letter and contain the @ symbol.');
+        return;
+      }
+
+      if (username === '' || password === '') {
+        alert('Please enter both username and password.');
+        return;
+      }
+      if (username === '/^[a-z].*@/.test(username)' || password === '') {
+        alert('Please enter password.');
+        return;
+      }
+
+      console.log('Username:', username);
+      console.log('Password:', password);
+      alert('Login successful (demo)');
+    });
+
+    // ✅ Hidden Test Cases
+    function runHiddenTests() {
+      const tests = [
+        { user: '', pass: '123', expected: 'fail - username empty' },
+        { user: 'vikas', pass: '', expected: 'fail - password empty' },
+        { user: 'vikas', pass: 'vikas@123', expected: 'pass - valid input' },
+        { user: 'Vikas123', pass: 'password', expected: 'fail - username does not start with lowercase and missing @' },
+        { user: 'vikas@domain', pass: 'password123', expected: 'pass - valid username with @' },
+      ];
+
+      console.log('🔍 Running hidden login test cases...');
+      tests.forEach((test, i) => {
+        const usernameValid = test.user.trim() !== '';
+        const passwordValid = test.pass.trim() !== '';
+        const result = usernameValid && passwordValid ? 'pass' : 'fail';
+
+        console.log(
+          `Test ${i + 1}: user="${test.user}" pass="${test.pass}" ➜ ${result} (${test.expected})`
+        );
+      });
+    }
+
+    // Run hidden tests on page load (for dev only)
+    runHiddenTests();
+  </script>
+</body>
+</html>
